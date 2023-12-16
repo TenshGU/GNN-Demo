@@ -1,4 +1,4 @@
-#environment:
+# environment:
 
 All have written down in **requirements.txt**
 
@@ -6,10 +6,22 @@ run as follows:
 
 `pip install -r requirements.txt`
 
-#DataBase:
+# DataBase:
+
 - cora
 
-#Implements:
-- Basic Pytorch version
+# Implements:
 
-- PyG version
+## 0 load data
+
+
+
+
+
+## 1 Basic Pytorch version：
+
+
+
+
+
+## 2 PyG version
