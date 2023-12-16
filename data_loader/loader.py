@@ -3,6 +3,7 @@ import torch
 import numpy as np
 import scipy.sparse as sp
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+from sklearn.preprocessing import normalize as normalizer
 
 
 def encode_onehot(labels):
@@ -46,7 +47,7 @@ def load_data(path="../data/cora/", dataset="cora"):
     # Using CSR_ Matrix compresses and stores feature data,
     # effectively storing non-zero elements and their positional information of sparse matrices
     features = sp.csr_matrix(idx_features_labels[:, 1:-1], dtype=np.float32)
-    features = sklearn.preprocessing.normalize(features)
+    features = normalizer(features)
     features = torch.FloatTensor(np.array(features.todense()))  # Convert to dense tensor format in Torch
 
     # extract labels and use one-hot to encode it

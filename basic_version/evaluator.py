@@ -1,7 +1,7 @@
 import time
 import torch
 from data_loader import loader
-from models import *
+from model import *
 
 
 def accuracy(output, labels):

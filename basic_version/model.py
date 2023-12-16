@@ -1,5 +1,5 @@
 from torch import nn
-from layers import GraphConv
+from layer import GraphConv
 import torch.nn.functional as F
 
 
