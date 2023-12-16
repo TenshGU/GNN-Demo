@@ -1,7 +1,7 @@
+import sklearn
 import torch
 import numpy as np
 import scipy.sparse as sp
-from sklearn.preprocessing import normalize
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 
 
@@ -26,6 +26,15 @@ def sparse_mx_to_torch_sparse_tensor(sparse_mx):
     return torch.sparse_coo_tensor(indices, values, shape)
 
 
+def normalize(mx):
+    degree_sum = np.array(mx.sum(1))  # D_ii = sum(A_ij) j from 1 to n
+    r_inv = np.power(degree_sum, -0.5).flatten()  # D^-1/2
+    r_inv[np.isinf(r_inv)] = 0.  # 1/xx, when xx is big
+    r_mat_inv = sp.diags(r_inv)  # flattened elements as diagonal elements, D^-1/2
+    mx = r_mat_inv.dot(mx).dot(r_mat_inv)  # D^-1/2 * A * D^-1/2
+    return mx
+
+
 def load_data(path="../data/cora/", dataset="cora"):
     print('Loading {} dataset...'.format(dataset))
 
@@ -37,7 +46,7 @@ def load_data(path="../data/cora/", dataset="cora"):
     # Using CSR_ Matrix compresses and stores feature data,
     # effectively storing non-zero elements and their positional information of sparse matrices
     features = sp.csr_matrix(idx_features_labels[:, 1:-1], dtype=np.float32)
-    features = normalize(features)
+    features = sklearn.preprocessing.normalize(features)
     features = torch.FloatTensor(np.array(features.todense()))  # Convert to dense tensor format in Torch
 
     # extract labels and use one-hot to encode it
@@ -80,6 +89,7 @@ def load_data(path="../data/cora/", dataset="cora"):
     # build symmetric adjacency matrix
     adj = adj + adj.T.multiply(adj.T > adj) - adj.multiply(adj.T > adj)
     # sp.eye(adj.shape[0]): The element on the diagonal is 1
+    # calculate D^-1/2 * A * D^-1/2
     adj = normalize(adj + sp.eye(adj.shape[0]))
     # change to sparse format float tensor
     adj = sparse_mx_to_torch_sparse_tensor(adj)

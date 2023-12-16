@@ -11,14 +11,17 @@ def accuracy(output, labels):
     return correct / len(labels)
 
 
-def train(epoch, model, optimizer, features, adj, idx_train, labels, fastmode):
+def train(epoch, model, optimizer, features, adj, idx_train, idx_val, labels, fastmode):
     t = time.time()
     model.train()
     optimizer.zero_grad()  # zero gradient
+    # adj is D^-1/2 * A * D^-1/2
     output = model(features, adj)
+    # nll_loss negative log
     loss_train = torch.nn.functional.nll_loss(output[idx_train], labels[idx_train])  # loss function
     acc_train = accuracy(output[idx_train], labels[idx_train])  # calculate accuracy
-    loss_train.backward()  # back propagation
+    # back propagation, It means we are only using the data from the training set to train the model
+    loss_train.backward()
     optimizer.step()  # update gradient
 
     if not fastmode:
@@ -36,7 +39,7 @@ def train(epoch, model, optimizer, features, adj, idx_train, labels, fastmode):
 
 
 def test(model, features, adj, idx_test, labels):
-    model.eval()
+    model.eval()  # The evaluation mode will turn off Dropout
     output = model(features, adj)  # features:(2708, 1433)   adj:(2708, 2708)
     loss_test = torch.nn.functional.nll_loss(output[idx_test], labels[idx_test])
     acc_test = accuracy(output[idx_test], labels[idx_test])
@@ -48,7 +51,7 @@ def test(model, features, adj, idx_test, labels):
 if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(device)
-    hidden = 16  # define the number of hidden layers
+    hidden = 16
     dropout = 0.5
     lr = 0.01
     weight_decay = 5e-4
@@ -65,7 +68,7 @@ if __name__ == "__main__":
         item.to(device) for item in (features, adj, labels, idx_train, idx_val, idx_test)
     )
     for epoch in range(epochs):
-        train(epoch, model, optimizer, features, adj, idx_train, labels, fastmode)
+        train(epoch, model, optimizer, features, adj, idx_train, idx_val, labels, fastmode)
     test(model, features, adj, idx_test, labels)
 
 

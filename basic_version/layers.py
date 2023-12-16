@@ -22,7 +22,9 @@ class GraphConv(Module):
             self.bias.data.uniform_(-stdv, stdv)
 
     def forward(self, x, adj):
+        # X * W
         support = torch.mm(x, self.weight)
+        # D^-1/2 * A * D^-1/2 * X * W
         output = torch.spmm(adj, support)
         if self.bias is not None:
             return output + self.bias
