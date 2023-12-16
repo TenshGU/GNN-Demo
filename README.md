@@ -1,6 +1,6 @@
-# environment:
+# Environment:
 
-All have written down in **requirements.txt**
+The dependencies involved have been written down in **requirements.txt**
 
 run as follows:
 
