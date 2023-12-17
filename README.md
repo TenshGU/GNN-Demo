@@ -34,3 +34,6 @@ The `.py files` in `pyg_version package` are as follows:
 
 - **model.py** : Defined GCN Model composed by `GCNConv` which provided by torch_geometric
 - **evaluator.py** : Used to evaluate our model
+
+# Result:
+![image](https://github.com/TenshGU/GNN-Demo/master/results/pyg_model_res.png)
