@@ -14,13 +14,13 @@ run as follows:
 
 # Implements:
 
-## 0 data loader
+## 0 Data Loader
 
 The `.py files` in `data_loader package` are as follows:
 
 - **loader.py** : loading cora dataset, extracting node features and edge information, and calculating D<sup>-1/2</sup> A D<sup>-1/2</sup>...
 
-## 1 Basic Pytorch version：
+## 1 Basic Pytorch Version：
 
 The `.py files` in `basic_version package` are as follows:
 
@@ -28,7 +28,7 @@ The `.py files` in `basic_version package` are as follows:
 - **model.py** : Defined GCN Model which composed by GraphConv
 - **evaluator.py** : Used to evaluate our model
 
-## 2 PyG version
+## 2 PyG Version
 
 The `.py files` in `pyg_version package` are as follows:
 
@@ -36,4 +36,6 @@ The `.py files` in `pyg_version package` are as follows:
 - **evaluator.py** : Used to evaluate our model
 
 # Result:
-![image](https://github.com/TenshGU/GNN-Demo/blob/master/results/pyg_model_res.png)
+
+- PyG Version:
+  - ![image](https://github.com/TenshGU/GNN-Demo/blob/master/results/pyg_model_res.png)
