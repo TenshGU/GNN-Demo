@@ -1,6 +1,6 @@
 import time
 import torch
-from data_loader import loader
+from data_loader import basic_loader
 from model import *
 
 
@@ -58,7 +58,7 @@ if __name__ == "__main__":
     fastmode = 'store_true'
     epochs = 500
 
-    adj, features, labels, idx_train, idx_val, idx_test = loader.load_data()
+    adj, features, labels, idx_train, idx_val, idx_test = basic_loader.load_data()
     model = GCN(num_feat=features.shape[1], num_hidden=hidden,
                 num_class=labels.max().item() + 1, dropout=dropout)
 
