@@ -36,4 +36,4 @@ The `.py files` in `pyg_version package` are as follows:
 - **evaluator.py** : Used to evaluate our model
 
 # Result:
-![image](https://github.com/TenshGU/GNN-Demo/master/results/pyg_model_res.png)
+![image](https://github.com/TenshGU/GNN-Demo/blob/master/results/pyg_model_res.png)
