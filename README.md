@@ -29,3 +29,8 @@ The `.py files` in `basic_version package` are as follows:
 - **evaluator.py** : Used to evaluate our model
 
 ## 2 PyG version
+
+The `.py files` in `pyg_version package` are as follows:
+
+- **model.py** : Defined GCN Model composed by `GCNConv` which provided by torch_geometric
+- **evaluator.py** : Used to evaluate our model
